@@ -73,6 +73,7 @@ class Completion extends React.Component<Props, State> {
       const items = [];
       const title = (
         <CompletionTitle
+          id={`title-${groupIndex}`}
           key={`group-${groupIndex}`}
           shown={viewOffset <= viewIndex && viewIndex < viewOffset + viewSize}
           title={group.name}
@@ -82,9 +83,7 @@ class Completion extends React.Component<Props, State> {
       for (const item of group.items) {
         items.push(
           <CompletionItem
-            shown={
-              viewOffset <= viewIndex && viewIndex < viewOffset + viewSize
-            }
+            shown={viewOffset <= viewIndex && viewIndex < viewOffset + viewSize}
             key={`item-${itemIndex}`}
             icon={item.icon}
             caption={item.caption}
@@ -97,7 +96,11 @@ class Completion extends React.Component<Props, State> {
         ++itemIndex;
       }
       groups.push(
-        <div role="group" aria-describedby={`title-${group.name}`}>
+        <div
+          key={`group-${groupIndex}`}
+          role="group"
+          aria-describedby={`title-${groupIndex}`}
+        >
           {title}
           <ul>{items}</ul>
         </div>
